@@ -1,7 +1,7 @@
-package br.edu.ifpb.pweb2.loteria.controller;
+package br.edu.ifpb.pweb2.sortetudo.controller;
 
-import br.edu.ifpb.pweb2.loteria.model.Cliente;
-import br.edu.ifpb.pweb2.loteria.repository.ClienteRepository;
+import br.edu.ifpb.pweb2.sortetudo.model.Aposta;
+import br.edu.ifpb.pweb2.sortetudo.repository.ApostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,39 +15,33 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/apostas")
+public class ApostaController {
 
     @Autowired
-    ClienteRepository clienteRepository;
+    ApostaRepository apostaRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getClientes() {
         ModelAndView mv = new ModelAndView("clientes");
-        List<Cliente> clientes = clienteRepository.findAll();
-        mv.addObject("clientes", clientes);
+        List<Aposta> apostas = apostaRepository.findAll();
+        mv.addObject("clientes", apostas);
         return mv;
     }
 
-    @RequestMapping(value = "/novoCliente", method = RequestMethod.GET)
-    public String getClienteForm() {
-        return "clienteForm";
-    }
-
-
     @RequestMapping(value = "/novoCliente", method = RequestMethod.POST)
-    public String cadastrarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
+    public String cadastrarCliente(@Valid Aposta aposta, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
         if (result.hasErrors()) {
             return "redirect:/novoCliente";
         }
-        clienteRepository.save(cliente);
+        apostaRepository.save(aposta);
         return "redirect:/clientes";
         }
 
 
     @RequestMapping("/{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {
-        clienteRepository.deleteById(id);
+        apostaRepository.deleteById(id);
         attr.addFlashAttribute("mensagem", "Conta removida com sucesso!");
         mav.setViewName("redirect:/clientes");
         return mav;

@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.loteria.model;
+package br.edu.ifpb.pweb2.sortetudo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

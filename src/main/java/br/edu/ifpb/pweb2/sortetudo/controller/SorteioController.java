@@ -1,9 +1,7 @@
-package br.edu.ifpb.pweb2.loteria.controller;
+package br.edu.ifpb.pweb2.sortetudo.controller;
 
-import br.edu.ifpb.pweb2.loteria.model.Aposta;
-import br.edu.ifpb.pweb2.loteria.model.Sorteio;
-import br.edu.ifpb.pweb2.loteria.repository.ApostaRepository;
-import br.edu.ifpb.pweb2.loteria.repository.SorteioRepository;
+import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
+import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

@@ -1,9 +1,7 @@
-package br.edu.ifpb.pweb2.loteria.controller;
+package br.edu.ifpb.pweb2.sortetudo.controller;
 
-import br.edu.ifpb.pweb2.loteria.model.Aposta;
-import br.edu.ifpb.pweb2.loteria.model.UserControlador;
-import br.edu.ifpb.pweb2.loteria.repository.ApostaRepository;
-import br.edu.ifpb.pweb2.loteria.repository.UserControladorRepository;
+import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
+import br.edu.ifpb.pweb2.sortetudo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -17,33 +15,39 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/apostas")
-public class MainController {
+@RequestMapping("/clientes")
+public class ClienteController {
 
     @Autowired
-    UserControladorRepository userControladorRepository;
+    ClienteRepository clienteRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getClientes() {
         ModelAndView mv = new ModelAndView("clientes");
-        List<UserControlador> controladors = userControladorRepository.findAll();
-        mv.addObject("clientes", controladors);
+        List<Cliente> clientes = clienteRepository.findAll();
+        mv.addObject("clientes", clientes);
         return mv;
     }
 
+    @RequestMapping(value = "/novoCliente", method = RequestMethod.GET)
+    public String getClienteForm() {
+        return "clienteForm";
+    }
+
+
     @RequestMapping(value = "/novoCliente", method = RequestMethod.POST)
-    public String cadastrarCliente(@Valid UserControlador controlador, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
+    public String cadastrarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
         if (result.hasErrors()) {
             return "redirect:/novoCliente";
         }
-        userControladorRepository.save(controlador);
+        clienteRepository.save(cliente);
         return "redirect:/clientes";
         }
 
 
     @RequestMapping("/{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {
-        userControladorRepository.deleteById(id);
+        clienteRepository.deleteById(id);
         attr.addFlashAttribute("mensagem", "Conta removida com sucesso!");
         mav.setViewName("redirect:/clientes");
         return mav;

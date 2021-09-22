@@ -1,4 +1,4 @@
-package br.edu.ifpb.pweb2.loteria.model;
+package br.edu.ifpb.pweb2.sortetudo.model;
 
 import lombok.Data;
 
