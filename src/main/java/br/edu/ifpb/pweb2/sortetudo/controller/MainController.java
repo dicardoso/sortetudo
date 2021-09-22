@@ -15,27 +15,27 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/apostas")
+@RequestMapping("/controladores")
 public class MainController {
 
     @Autowired
     UserControladorRepository userControladorRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getClientes() {
+    public ModelAndView getControlador() {
         ModelAndView mv = new ModelAndView("clientes");
         List<UserControlador> controladors = userControladorRepository.findAll();
-        mv.addObject("clientes", controladors);
+        mv.addObject("controladores", controladors);
         return mv;
     }
 
-    @RequestMapping(value = "/novoCliente", method = RequestMethod.POST)
-    public String cadastrarCliente(@Valid UserControlador controlador, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
+    @RequestMapping(value = "/novoControlador", method = RequestMethod.POST)
+    public String cadastrarControlador(@Valid UserControlador controlador, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
         if (result.hasErrors()) {
-            return "redirect:/novoCliente";
+            return "redirect:/novoControlador";
         }
         userControladorRepository.save(controlador);
-        return "redirect:/clientes";
+        return "redirect:/controladores";
         }
 
 
@@ -43,7 +43,7 @@ public class MainController {
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {
         userControladorRepository.deleteById(id);
         attr.addFlashAttribute("mensagem", "Conta removida com sucesso!");
-        mav.setViewName("redirect:/clientes");
+        mav.setViewName("redirect:/controladores");
         return mav;
     }
 }
