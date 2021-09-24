@@ -35,13 +35,10 @@ public class ClienteController {
     }
 
 
-    @RequestMapping(value = "/novoCliente", method = RequestMethod.POST)
-    public String cadastrarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
-        if (result.hasErrors()) {
-            return "redirect:/novoCliente";
-        }
+    @RequestMapping(method = RequestMethod.POST)
+    public String cadastrarCliente(Cliente cliente, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
         clienteRepository.save(cliente);
-        return "redirect:/clientes";
+        return "foi";
         }
 
 
@@ -52,4 +49,5 @@ public class ClienteController {
         mav.setViewName("redirect:/clientes");
         return mav;
     }
+
 }

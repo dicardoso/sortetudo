@@ -35,5 +35,4 @@ public class AppConfiguration implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
-
 }
