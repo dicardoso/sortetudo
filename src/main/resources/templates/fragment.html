@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt_BR" xmlns:th="www.thymeleaf.org">
+<html lang="pt_BR" xmlns:th="www.thymeleaf.org"/>
 <head th:fragment="head">
   <meta charset="UTF-8"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -8,29 +8,48 @@
   <title>Sortetudo</title>
 </head>
 
-<div th:fragment="menu" class=" bg-success text-light mb-3 p-3 d-flex justify-content-between">
-  <a class="text-light" th:href="@{/home}"><span class ="logo">Sortetudo</span></a>
-  <div class="menu-right">
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle bg-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-user 3x"></i>
+<div th:fragment="menu" class=" bg-warning bg-gradient mb-3 p-3">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Sortetudo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
-        <a class = "dropdown-item" th:href="@{/favoritos}" >Favoritos</a>
-        <a class = "dropdown-item" th:href="@{/minhasapostas}">Apostas</a>
-        <a onclick="document.querySelector('#form-login').submit()"  class = "dropdown-item text-danger" href="#">Logout</a>
-        <form id="form-login" th:action="@{/logout}" method="post"></form>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Apostar</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Sorteio
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Listar</a></li>
+              <li><a class="dropdown-item" href="#">Conferir </a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
-      <span>Fulano de Tal</span>
     </div>
-  </div>
+    <div class="menu-right">
+      <div class="btn-group dropstart">
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="dropdown" aria-disabled="true">Fulano de Tal</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Apostas favoritas</a></li>
+          <li><a class="dropdown-item" href="#">Minhas apostas</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </div>
 
 <style>
-  .logo{
-    font-family:'Arial', sans-serif;
-    font-size: 1.5rem;
-  }
   .menu-right{
     display: flex;
   }
