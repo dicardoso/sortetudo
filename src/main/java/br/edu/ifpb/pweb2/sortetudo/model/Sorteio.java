@@ -16,7 +16,7 @@ public class Sorteio {
     private Long idSorteio;
 
     @ElementCollection
-    private List<String> dezenasSorteadas = new ArrayList<>();
+    private List<Integer> dezenasSorteadas = new ArrayList<>();
 
     private LocalDate dataHoraSorteio;
 

@@ -16,7 +16,7 @@ public class Aposta {
     private Long id;
 
     @ElementCollection
-    private List<Integer> numerosAposta = new ArrayList<>();
+    List<Integer> numeros = new ArrayList<>();
 
     private LocalDate diaAposta;
 
@@ -25,4 +25,8 @@ public class Aposta {
 
     @ManyToOne
     private Cliente cliente;
+
+    public void adicionarNumero(Integer numero) {
+        numeros.add(numero);
+    }
 }

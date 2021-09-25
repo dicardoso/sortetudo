@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -29,13 +31,40 @@ public class ApostaController {
         return mv;
     }
 
-    @RequestMapping(value = "/novaAposta", method = RequestMethod.POST)
-    public String cadastrarAposta(Aposta aposta, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/novaAposta";
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String cadastrarAposta(int num1,int num2,int num3,int num4,int num5, int num6, int num7, int num8, int num9, int num10) {
+
+
+        Aposta aposta = new Aposta();
+        ArrayList<Integer> numeros = new ArrayList();
+        ArrayList<Integer> numerosDigitados = new ArrayList();
+
+        numeros.add(num1);
+        numeros.add(num2);
+        numeros.add(num3);
+        numeros.add(num4);
+        numeros.add(num5);
+        numeros.add(num6);
+        numeros.add(num7);
+        numeros.add(num8);
+        numeros.add(num9);
+        numeros.add(num10);
+
+        for (int i =0; i < 10; i++) {
+            if (numeros.get(i) >=1 && numeros.get(i) <=60) {
+                numerosDigitados.add(numeros.get(i));
+            }
         }
+
+        aposta.setNumeros(numerosDigitados);
+        aposta.setDiaAposta(LocalDate.now());
+
+     //apostas favoritas, colocar um checkbox no front, if true,
+        // salva os numeros no array de favoritos de clientes
         apostaRepository.save(aposta);
-        return "redirect:/apostas";
+
+        return "foi";
         }
 
 
