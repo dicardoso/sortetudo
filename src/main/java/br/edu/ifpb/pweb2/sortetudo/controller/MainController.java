@@ -23,7 +23,7 @@ public class MainController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getControlador() {
-        ModelAndView mv = new ModelAndView("clientes");
+        ModelAndView mv = new ModelAndView("controladoes");
         List<UserControlador> controladors = userControladorRepository.findAll();
         mv.addObject("controladores", controladors);
         return mv;
@@ -42,7 +42,7 @@ public class MainController {
     @RequestMapping("/{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {
         userControladorRepository.deleteById(id);
-        attr.addFlashAttribute("mensagem", "Conta removida com sucesso!");
+        attr.addFlashAttribute("mensagem", "Conta controlador removida com sucesso!");
         mav.setViewName("redirect:/controladores");
         return mav;
     }

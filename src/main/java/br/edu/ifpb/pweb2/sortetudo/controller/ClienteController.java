@@ -36,9 +36,17 @@ public class ClienteController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public String cadastrarCliente(Cliente cliente, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
+    public ModelAndView cadastrarCliente(Cliente cliente, BindingResult result, RedirectAttributes attr, ModelAndView mav) {
         clienteRepository.save(cliente);
-        return "foi";
+        if (result.hasErrors()) {
+            mav.setViewName("/clientes");
+            return mav;
+        }
+        clienteRepository.save(cliente);
+
+        attr.addFlashAttribute("mensagem", "Conta cadastrada com sucesso!");
+        mav.setViewName("/clientes");
+        return mav;
         }
 
 

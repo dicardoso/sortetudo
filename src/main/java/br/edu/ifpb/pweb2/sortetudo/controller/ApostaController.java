@@ -22,28 +22,28 @@ public class ApostaController {
     ApostaRepository apostaRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getClientes() {
-        ModelAndView mv = new ModelAndView("clientes");
+    public ModelAndView getAposta() {
+        ModelAndView mv = new ModelAndView("aposta");
         List<Aposta> apostas = apostaRepository.findAll();
-        mv.addObject("clientes", apostas);
+        mv.addObject("aposta", apostas);
         return mv;
     }
 
-    @RequestMapping(value = "/novoCliente", method = RequestMethod.POST)
-    public String cadastrarCliente(@Valid Aposta aposta, BindingResult result, RedirectAttributes attributes, ModelAndView modelAndView) {
+    @RequestMapping(value = "/novaAposta", method = RequestMethod.POST)
+    public String cadastrarAposta(Aposta aposta, BindingResult result) {
         if (result.hasErrors()) {
-            return "redirect:/novoCliente";
+            return "redirect:/novaAposta";
         }
         apostaRepository.save(aposta);
-        return "redirect:/clientes";
+        return "redirect:/apostas";
         }
 
 
     @RequestMapping("/{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {
         apostaRepository.deleteById(id);
-        attr.addFlashAttribute("mensagem", "Conta removida com sucesso!");
-        mav.setViewName("redirect:/clientes");
+        attr.addFlashAttribute("mensagem", "Aposta removida com sucesso!");
+        mav.setViewName("redirect:/apostas");
         return mav;
     }
 }

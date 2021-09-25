@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragment :: head}"></head>
+<body>
+<div th:replace="~{fragment :: menu}"></div>
+<div class="d-flex">
+    <div class="container">
+        <div class="card" style="width: 30rem;">
+
+            <div class="card-body">
+                <h3>Dezenas</h3>
+                <form method="post">
+                    <div class="form-group mt-3">
+                        <label>1° Número: </label>
+                        <input th:name="num1" value=0 >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>2° Número: </label>
+                        <input th:name="num2" value=0 >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>3° Número: </label>
+                        <input th:name="num3" value=0 >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>4° Número: </label>
+                        <input th:name="num4" value=0 >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>5° Número:</label>
+                        <input th:name="num5" value=0 >
+                    </div>
+
+                    <div  class="form-group mt-3">
+                        <label>6° Número: </label>
+                        <input th:name="num6" value=0>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>7° Número: </label>
+                        <input th:name="num7" value=0 >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>8° Número: </label>
+                        <input th:name="num8" value=0>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>9° Número:</label>
+                        <input th:name="num9" value=0 >
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label>10° Número:</label>
+                        <input th:name="num10" value=0>
+                    </div>
+
+                    <button class="btn btn-success mt-3" type="submit">Apostar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card" style="width: 30rem;">
+            <div class="card-header">
+                Preço das apostas
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
