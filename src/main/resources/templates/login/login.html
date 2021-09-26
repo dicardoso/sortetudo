@@ -5,8 +5,34 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .login{
+        width: 35%;
+        margin: 0;
+    }
+</style>
 <body>
-
-
+<div th:replace="~{fragment :: menuClean}"></div>
+<div class="login card mx-auto">
+    <div class="card-header">
+        Login
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group mt-3 d-flex flex-column">
+                <label for="cpf">CPF: </label>
+                <input id="cpf" type="text" th:name="cpf">
+            </div>
+            <div class="form-group mt-3 d-flex flex-column">
+                <label for="senha" >Senha: </label>
+                <input id="senha" type="password" th:name="senha">
+            </div>
+            <div class="d-grid gap-1 mt-2">
+                <span class="text-center">Não tem cadastro? <a href="/" th:href="@{/clientes}">Registre-se!</a></span>
+                <button class="btn btn-primary mt-3" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

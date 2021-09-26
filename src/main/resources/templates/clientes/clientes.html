@@ -3,10 +3,10 @@
 <head th:insert="~{fragment :: head}"></head>
 
 <body>
-<div th:replace="~{fragment :: menu}"></div>
+<div th:replace="~{fragment :: menuClean}"></div>
 <form method="post">
     <div class="ml-2">
-        <div class="card" style="width: 24rem;">
+        <div class="card mx-auto" style="width: 24rem;">
             <div class="card-header">
                 Cadastro de clientes
             </div>
@@ -18,7 +18,7 @@
                   th:object="${cliente}">
                 <input type="hidden" th:field="*{id}" />
                 <div class="card-body">
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label class="form-label">Nome</label>
                         <input type="text" th:field="*{nome}" class="form-control" name="nome" placeholder="Digite o nome">
                         <br/>
@@ -26,7 +26,7 @@
                            th:errors="*{nome}"
                            style="color: red"/>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label class="form-label">CPF</label>
                         <input type="text" th:field="*{cpf}" class="form-control" name="cpf" placeholder="Digite seu CPF">
                         <br/>
@@ -34,7 +34,7 @@
                            th:errors="*{cpf}"
                            style="color: red"/>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <label class="form-label">Data de Nascimento</label>
                         <input type="date" th:field="*{nascimento}" class="form-control" name="nascimento" placeholder="Digite sua data de nascimento">
                         <br/>
@@ -42,7 +42,7 @@
                            th:errors="*{nascimento}"
                            style="color: red" />
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label class="form-label">Senha</label>
                         <input type="password" th:field="*{senha}" class="form-control" name="senha" placeholder="Digite sua senha">
                         <br/>
