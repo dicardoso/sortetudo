@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.sortetudo.controller;
 
+import br.edu.ifpb.pweb2.sortetudo.auxiliar.SenhaAuxiliar;
 import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
 import br.edu.ifpb.pweb2.sortetudo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,9 @@ public class ClienteController {
     ClienteRepository clienteRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getClientes() {
-        ModelAndView mv = new ModelAndView("clientes");
-        List<Cliente> clientes = clienteRepository.findAll();
-        mv.addObject("clientes", clientes);
+    public ModelAndView getCadastroClientes(ModelAndView mv) {
+        mv.addObject("cliente", new Cliente());
+        mv.setViewName("clientes/clientes");
         return mv;
     }
 
@@ -36,18 +36,15 @@ public class ClienteController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView cadastrarCliente(Cliente cliente, BindingResult result, RedirectAttributes attr, ModelAndView mav) {
-        clienteRepository.save(cliente);
+    public String cadastrarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
-            mav.setViewName("/clientes");
-            return mav;
+            return "clientes/clientes";
         }
+        cliente.setSenha(SenhaAuxiliar.hashSenha(cliente.getSenha()));
         clienteRepository.save(cliente);
-
         attr.addFlashAttribute("mensagem", "Conta cadastrada com sucesso!");
-        mav.setViewName("/clientes");
-        return mav;
-        }
+        return "redirect:/clientes";
+    }
 
 
     @RequestMapping("/{id}/delete")

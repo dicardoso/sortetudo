@@ -5,6 +5,7 @@ import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,11 +28,10 @@ public class SorteioController {
     SorteioRepository sorteioRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getSorteios() {
-        ModelAndView mv = new ModelAndView("sorteios");
-        List<Sorteio> sorteios = sorteioRepository.findAll();
-        mv.addObject("sorteios", sorteios);
-        return mv;
+    public ModelAndView listAllSorteios(ModelAndView mav) {
+        mav.addObject("sorteios", sorteioRepository.findAll());
+        mav.setViewName("sorteios/sorteios");
+        return mav;
     }
 
 
