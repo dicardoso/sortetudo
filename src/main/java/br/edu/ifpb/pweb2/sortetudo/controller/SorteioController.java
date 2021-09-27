@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.sortetudo.controller;
 
+import br.edu.ifpb.pweb2.sortetudo.auxiliar.SenhaAuxiliar;
 import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
 import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
@@ -35,10 +36,10 @@ public class SorteioController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String cadastrarSorteio() {
+    @RequestMapping(value = "/gerarSorteio", method = RequestMethod.POST)
+    public String realizarSorteio(@PathVariable(value = "id") Long id) {
 
-        Sorteio sorteio = new Sorteio();
+        Sorteio sorteio = sorteioRepository.findById(id).get();
         ArrayList<Integer> list = new ArrayList();
         ArrayList<Integer> sorteados = new ArrayList();
         int contador = 0;
@@ -51,7 +52,7 @@ public class SorteioController {
             contador++;
         }
         //TODO parametrizar do premio no front
-        sorteio.setValorPremio(100);
+
         sorteio.setDezenasSorteadas(sorteados);
         LocalDate dataUltimoSorteio = sorteioRepository.ultimoSorteio();
 
@@ -60,8 +61,27 @@ public class SorteioController {
             sorteioRepository.save(sorteio);
         }
 
+        sorteio.setRealizado(true);
 
-        return "foi";
+        return  "redirect:/sorteios";
+    }
+
+    @RequestMapping(value = "/formSorteio", method = RequestMethod.GET)
+    public ModelAndView getCadastroClientes(ModelAndView mv) {
+        mv.addObject("sorteio", new Sorteio());
+        mv.setViewName("sorteios/formSorteio");
+        return mv;
+    }
+
+    @RequestMapping(value = "/formSorteio", method = RequestMethod.POST)
+    public String cadastrarSorteio(@Valid Sorteio sorteio, BindingResult result, RedirectAttributes attr) {
+        if (result.hasErrors()) {
+            return "clientes/clientes";
+        }
+
+        sorteioRepository.save(sorteio);
+        attr.addFlashAttribute("mensagem", "Conta cadastrada com sucesso!");
+        return "redirect:/clientes";
     }
 
     @RequestMapping("/{id}/delete")

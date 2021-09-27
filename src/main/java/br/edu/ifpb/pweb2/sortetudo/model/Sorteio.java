@@ -21,4 +21,6 @@ public class Sorteio {
     private LocalDate dataHoraSorteio;
 
     private int valorPremio;
+
+    private boolean realizado = false;
 }

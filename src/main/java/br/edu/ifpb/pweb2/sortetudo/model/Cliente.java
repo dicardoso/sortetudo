@@ -24,7 +24,6 @@ public class Cliente {
     @NotBlank(message="Campo obrigatório!")
     private String nome;
 
-
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
     private Date nascimento; // perguntar se pode usar localDate ao inves de Date
@@ -32,6 +31,8 @@ public class Cliente {
     @NotBlank(message="Campo obrigatório!")
     @Size(min = 11, max = 11, message = "CPF tem que ter 11 digitos!")
     private String cpf;
+
+    private boolean adm = false;
 
     @NotBlank(message="Campo obrigatório")
     @Size(min=6, message = "Senha deve ter no mínimo 6 caracteres")

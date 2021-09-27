@@ -1,7 +1,9 @@
 package br.edu.ifpb.pweb2.sortetudo.controller;
 
 import br.edu.ifpb.pweb2.sortetudo.model.Aposta;
+import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.ApostaRepository;
+import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,8 @@ public class ApostaController {
 
     @Autowired
     ApostaRepository apostaRepository;
+    @Autowired
+    SorteioRepository sorteioRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAposta() {
@@ -31,11 +35,10 @@ public class ApostaController {
         return mv;
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
-    public String cadastrarAposta(int num1,int num2,int num3,int num4,int num5, int num6, int num7, int num8, int num9, int num10) {
+    public String cadastrarAposta(Long idSorteio, int num1,int num2,int num3,int num4,int num5, int num6, int num7, int num8, int num9, int num10) {
 
-
+        Sorteio sorteio = sorteioRepository.getById(idSorteio);
         Aposta aposta = new Aposta();
         ArrayList<Integer> numeros = new ArrayList();
         ArrayList<Integer> numerosDigitados = new ArrayList();
@@ -59,6 +62,7 @@ public class ApostaController {
 
         aposta.setNumeros(numerosDigitados);
         aposta.setDiaAposta(LocalDate.now());
+        aposta.setSorteio(sorteio);
 
      //apostas favoritas, colocar um checkbox no front, if true,
         // salva os numeros no array de favoritos de clientes
@@ -66,7 +70,6 @@ public class ApostaController {
 
         return "foi";
         }
-
 
     @RequestMapping("/{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {
