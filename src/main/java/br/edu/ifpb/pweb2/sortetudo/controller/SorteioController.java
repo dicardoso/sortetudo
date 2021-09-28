@@ -28,7 +28,7 @@ public class SorteioController {
     @Autowired
     SorteioRepository sorteioRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/listarSorteios", method = RequestMethod.GET)
     public ModelAndView listAllSorteios(ModelAndView mav) {
         mav.addObject("sorteios", sorteioRepository.findAll());
         mav.setViewName("sorteios/sorteios");
