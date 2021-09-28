@@ -5,39 +5,59 @@
 <div th:replace="~{fragment :: menu}"></div>
 
 <div>
-    <form method="post">
+    <form method="POST" th:object="${sorteios}" th:action="@{realizarSorteioManual}">
 
         <div class="form-group mt-3">
             <label for="n1" >1° Número: </label>
-            <input id="n1" type="number" min="1" max="60" th:name="num1" value=0 >
+            <input id="n1" type="number" min="1" max="60" th:name="num1" placeholder="" 0 >
         </div>
 
         <div class="form-group mt-3">
             <label for="n2">2° Número: </label>
-            <input id="n2" th:name="num2" value=0 >
+            <input id="n2" type="number" min="1" max="60" th:name="num2" placeholder=0 >
         </div>
 
         <div class="form-group mt-3">
             <label for="n3">3° Número: </label>
-            <input id="n3" th:name="num3" value=0 >
+            <input id="n3" type="number" min="1" max="60" th:name="num3" placeholder=0 >
         </div>
 
         <div class="form-group mt-3">
             <label for="n4">4° Número: </label>
-            <input id="n4" th:name="num4" value=0 >
+            <input id="n4" type="number" min="1" max="60" th:name="num4" placeholder=0 >
         </div>
 
         <div class="form-group mt-3">
             <label for="n5">5° Número:</label>
-            <input id="n5" th:name="num5" value=0 >
+            <input id="n5" type="number" min="1" max="60" th:name="num5" placeholder=0 >
         </div>
 
         <div  class="form-group mt-3">
             <label for="n6">6° Número: </label>
-            <input id="n6" th:name="num6" value=0>
+            <input id="n6" type="number" min="1" max="60" th:name="num6" placeholder=0>
         </div>
         <button type="submit">Teste</button>
     </form>
+</div>
+
+<div>
+    <div class="card pb-3" style="width: 30rem">
+        <div class="card-header">
+            Sorteio atual
+        </div>
+        <div class="card-body text-center">
+            <h3>Sorteio nº{id}</h3>
+            <p>Data do sorteio: dd/mm/aaaa</p>
+            <div class="mt-2">
+                <p>Dezenas sorteadas</p>
+                <span class="p-3 border bg-light rounded">01 - 02 - 03 - 04 - 05 - 06</span>
+                <div class="mt-4">
+                    <button class="btn-success">Sortear</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
