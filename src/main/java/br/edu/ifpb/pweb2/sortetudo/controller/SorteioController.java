@@ -1,22 +1,14 @@
 package br.edu.ifpb.pweb2.sortetudo.controller;
 
-import br.edu.ifpb.pweb2.sortetudo.auxiliar.SenhaAuxiliar;
-import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
 import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +27,16 @@ public class SorteioController {
         return mav;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @GetMapping("/listarDezenas")
+    public List<Integer> listarDezenas() {
+         List<Integer> dezenas = new ArrayList<>();
+         int id = 1;
+        Sorteio ultimoSorteio = sorteioRepository.getById((long) id);
+        dezenas = ultimoSorteio.getDezenasSorteadas();
+        return dezenas;
+    }
+
+    @PostMapping()
     public String realizarSorteioManual(int num1,int num2,int num3,int num4,int num5, int num6) {
 
          int id = 1;
@@ -50,13 +51,16 @@ public class SorteioController {
         sorteados.add(num6);
 
         if (sorteados.size() == 6) {
-            sorteio.setDezenasSorteadas(sorteados);
+            ultimoSorteio.setDezenasSorteadas(sorteados);
+            ultimoSorteio.setRealizado(true);
+            sorteioRepository.save(ultimoSorteio);
         }
-        return "redirect:/sorteios";
+
+        return "redirect:/sorteios/listarSorteios";
     }
 
 
-    /*@RequestMapping(value = "/gerarSorteio", method = RequestMethod.POST)
+    @RequestMapping(value = "/gerarSorteio", method = RequestMethod.POST)
     public String realizarSorteio(@PathVariable(value = "id") Long id) {
 
         Sorteio sorteio = sorteioRepository.findById(id).get();
@@ -84,7 +88,7 @@ public class SorteioController {
         sorteio.setRealizado(true);
 
         return  "redirect:/sorteios";
-    }*/
+    }
 
     @RequestMapping(value = "/formSorteio", method = RequestMethod.GET)
     public ModelAndView getCadastroClientes(ModelAndView mv) {

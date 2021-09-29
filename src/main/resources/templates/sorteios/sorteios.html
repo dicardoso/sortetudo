@@ -5,7 +5,7 @@
 <div th:replace="~{fragment :: menu}"></div>
 
 <div>
-    <form method="POST" th:object="${sorteios}" th:action="@{realizarSorteioManual}">
+    <form th:object="${sorteio}" th:action="@{/sorteios}" method="post">
 
         <div class="form-group mt-3">
             <label for="n1" >1° Número: </label>
