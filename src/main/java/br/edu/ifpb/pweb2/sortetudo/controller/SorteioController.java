@@ -42,7 +42,7 @@ public class SorteioController {
          int id = 1;
         Sorteio sorteio = sorteioRepository.findById((long) id).get();
         ArrayList<Integer> sorteados = new ArrayList();
-
+        System.out.println("Teste de bug " + listarDezenas());
         sorteados.add(num1);
         sorteados.add(num2);
         sorteados.add(num3);
@@ -91,7 +91,7 @@ public class SorteioController {
     }
 
     @RequestMapping(value = "/formSorteio", method = RequestMethod.GET)
-    public ModelAndView getCadastroClientes(ModelAndView mv) {
+    public ModelAndView getCadastroSorteio(ModelAndView mv) {
         mv.addObject("sorteio", new Sorteio());
         mv.setViewName("sorteios/formSorteio");
         return mv;
