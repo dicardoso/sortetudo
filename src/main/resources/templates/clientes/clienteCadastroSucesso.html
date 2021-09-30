@@ -2,11 +2,22 @@
 <html xmlns:th="http://thymeleaf.org">
 <head th:insert="~{fragment :: head}"></head>
 <body>
-
+<div th:replace="~{fragment :: menuClean}"></div>
 <section>
     <div class="container"  style="width: 70%;">
         <div class="">
-
+            <div class="ml-2">
+                <form action="post" th:action = "@{/login}" method="post" th:object="${mensagem}">
+                    <div class="card mx-auto" style="width: 24rem;">
+                        <div class="card-header d-flex justify-content-center">
+                            <h3 th:text="${mensagem}" style="color: red;"></h3>
+                        </div>
+                        <div class="card-body d-flex justify-content-center">
+                            <button class="btn btn-primary mt-3 align-self-center justify-self-center" type="submit">Voltar para a pagina de login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>

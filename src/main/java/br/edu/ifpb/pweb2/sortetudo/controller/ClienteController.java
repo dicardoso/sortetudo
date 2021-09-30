@@ -6,10 +6,7 @@ import br.edu.ifpb.pweb2.sortetudo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -37,14 +34,16 @@ public class ClienteController {
 
 
     @PostMapping()
-    public String cadastrarCliente(@Valid Cliente cliente, BindingResult result, RedirectAttributes attr) {
+    public ModelAndView  cadastrarCliente(@Valid Cliente cliente, BindingResult result, ModelAndView mv, RedirectAttributes attr) {
         if (result.hasErrors()) {
-            return "clientes/clientes";
+            mv.addObject("cliente", cliente);
+            mv.setViewName("/clientes/clientes");
         }
         cliente.setSenha(SenhaAuxiliar.hashSenha(cliente.getSenha()));
         clienteRepository.save(cliente);
         attr.addFlashAttribute("mensagem", "Conta cadastrada com sucesso!");
-        return "redirect:/clientes";
+        mv.setViewName("redirect:/clientes/clienteCadastroSucesso");
+        return mv;
     }
 
 
@@ -53,6 +52,13 @@ public class ClienteController {
         clienteRepository.deleteById(id);
         attr.addFlashAttribute("mensagem", "Conta removida com sucesso!");
         mav.setViewName("redirect:/clientes");
+        return mav;
+    }
+
+    @GetMapping(value = "/clienteCadastroSucesso")
+    public ModelAndView redirectSucesso(ModelAndView mav){
+        mav.addObject("mensagem", "Conta cadastrada com sucesso!");
+        mav.setViewName("clientes/clienteCadastroSucesso");
         return mav;
     }
 
