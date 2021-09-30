@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head th:insert="~{fragment :: head}"></head>
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <style>
     .login{
         width: 35%;
@@ -18,14 +14,21 @@
         Login
     </div>
     <div class="card-body">
-        <form method="post">
+        <form method="post"
+              th:action="@{/login}"
+              th:object="${usuario}"
+        >
+            <div th:if="${not #strings.isEmpty(mensagem)}"
+                 th:utext="${mensagem} +'<button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;><span aria-hidden=&quot;true&quot;>&times;</span></button>'"
+                 class="alert alert-danger alert-dismissible fade show" role="alert"></div>
+
             <div class="form-group mt-3 d-flex flex-column">
                 <label for="cpf">CPF: </label>
-                <input id="cpf" type="text" th:name="cpf">
+                <input id="cpf" type="text" name="cpf" th:field="*{cpf}" >
             </div>
             <div class="form-group mt-3 d-flex flex-column">
                 <label for="senha" >Senha: </label>
-                <input id="senha" type="password" th:name="senha">
+                <input id="senha" type="password" name="senha" th:field="*{senha}">
             </div>
             <div class="d-grid gap-1 mt-2">
                 <span class="text-center">Não tem cadastro? <a href="/" th:href="@{/clientes}">Registre-se!</a></span>

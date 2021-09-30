@@ -40,6 +40,7 @@ public class SorteioController {
     public String realizarSorteioManual(int num1,int num2,int num3,int num4,int num5, int num6) {
 
          int id = 1;
+        Sorteio ultimoSorteio = sorteioRepository.getSorteioAtual();
         Sorteio sorteio = sorteioRepository.findById((long) id).get();
         ArrayList<Integer> sorteados = new ArrayList();
         System.out.println("Teste de bug " + listarDezenas());
