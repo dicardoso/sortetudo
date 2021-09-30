@@ -28,10 +28,10 @@ public class ApostaController {
     SorteioRepository sorteioRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAposta() {
-        ModelAndView mv = new ModelAndView("aposta");
+    public ModelAndView getAposta(ModelAndView mv) {
         List<Aposta> apostas = apostaRepository.findAll();
         mv.addObject("aposta", apostas);
+        mv.setViewName("aposta");
         return mv;
     }
 

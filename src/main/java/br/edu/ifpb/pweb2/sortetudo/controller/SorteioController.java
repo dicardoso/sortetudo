@@ -4,10 +4,12 @@ import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,10 +39,9 @@ public class SorteioController {
     }
 
     @PostMapping()
-    public String realizarSorteioManual(int num1,int num2,int num3,int num4,int num5, int num6) {
+    public String realizarSorteioManual(int id, int num1,int num2,int num3,int num4,int num5, int num6) {
 
-         int id = 1;
-        Sorteio sorteio = sorteioRepository.findById((long) id).get();
+        Sorteio ultimoSorteio = sorteioRepository.findById((long) id).get();
         ArrayList<Integer> sorteados = new ArrayList();
 
         sorteados.add(num1);
@@ -89,24 +90,26 @@ public class SorteioController {
 
         return  "redirect:/sorteios";
     }
-
+/*
     @RequestMapping(value = "/formSorteio", method = RequestMethod.GET)
     public ModelAndView getCadastroClientes(ModelAndView mv) {
         mv.addObject("sorteio", new Sorteio());
         mv.setViewName("sorteios/formSorteio");
         return mv;
     }
-
-  /*  @RequestMapping(value = "/formSorteio", method = RequestMethod.POST)
+*/
+    @RequestMapping(value = "/formSorteio", method = RequestMethod.POST)
     public String cadastrarSorteio(@Valid Sorteio sorteio, BindingResult result, RedirectAttributes attr) {
         if (result.hasErrors()) {
-            return "clientes/clientes";
+            System.out.println(result);
+            return "redirect:/sorteios/listarSorteios";
         }
-
+        sorteio.setRealizado(false);
+        sorteio.setDezenasSorteadas(null);
         sorteioRepository.save(sorteio);
-        attr.addFlashAttribute("mensagem", "Conta cadastrada com sucesso!");
-        return "redirect:/clientes";
-    }*/
+        attr.addFlashAttribute("mensagem", "Sorteio cadastrado com sucesso!");
+        return "redirect:/sorteios/listarSorteios";
+    }
 
     @RequestMapping("/{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Long id, ModelAndView mav, RedirectAttributes attr) {

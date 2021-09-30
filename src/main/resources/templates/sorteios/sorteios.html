@@ -3,60 +3,101 @@
 <head th:insert="~{fragment :: head}"></head>
 <body>
 <div th:replace="~{fragment :: menu}"></div>
+<div class="d-flex">
+    <div class="card" style="width: 20rem">
+        <form th:object="${sorteio}" th:action="@{/sorteios}" method="post">
+            <div class="form-group mt-3">
+                <label for="id" >ID: </label>
+                <input id="id" type="number" min="1" th:name="id" placeholder="0">
+            </div>
 
-<div>
-    <form th:object="${sorteio}" th:action="@{/sorteios}" method="post">
+            <div class="form-group mt-3">
+                <label for="n1" >1° Número: </label>
+                <input id="n1" type="number" min="1" max="60" th:name="num1" placeholder="0">
+            </div>
 
-        <div class="form-group mt-3">
-            <label for="n1" >1° Número: </label>
-            <input id="n1" type="number" min="1" max="60" th:name="num1" placeholder="" 0 >
-        </div>
+            <div class="form-group mt-3">
+                <label for="n2">2° Número: </label>
+                <input id="n2" type="number" min="1" max="60" th:name="num2" placeholder=0 >
+            </div>
 
-        <div class="form-group mt-3">
-            <label for="n2">2° Número: </label>
-            <input id="n2" type="number" min="1" max="60" th:name="num2" placeholder=0 >
-        </div>
+            <div class="form-group mt-3">
+                <label for="n3">3° Número: </label>
+                <input id="n3" type="number" min="1" max="60" th:name="num3" placeholder=0 >
+            </div>
 
-        <div class="form-group mt-3">
-            <label for="n3">3° Número: </label>
-            <input id="n3" type="number" min="1" max="60" th:name="num3" placeholder=0 >
-        </div>
+            <div class="form-group mt-3">
+                <label for="n4">4° Número: </label>
+                <input id="n4" type="number" min="1" max="60" th:name="num4" placeholder=0 >
+            </div>
 
-        <div class="form-group mt-3">
-            <label for="n4">4° Número: </label>
-            <input id="n4" type="number" min="1" max="60" th:name="num4" placeholder=0 >
-        </div>
+            <div class="form-group mt-3">
+                <label for="n5">5° Número:</label>
+                <input id="n5" type="number" min="1" max="60" th:name="num5" placeholder=0 >
+            </div>
 
-        <div class="form-group mt-3">
-            <label for="n5">5° Número:</label>
-            <input id="n5" type="number" min="1" max="60" th:name="num5" placeholder=0 >
-        </div>
+            <div  class="form-group mt-3">
+                <label for="n6">6° Número: </label>
+                <input id="n6" type="number" min="1" max="60" th:name="num6" placeholder=0>
+            </div>
+            <button type="submit">Teste</button>
+        </form>
+    </div>
 
-        <div  class="form-group mt-3">
-            <label for="n6">6° Número: </label>
-            <input id="n6" type="number" min="1" max="60" th:name="num6" placeholder=0>
-        </div>
-        <button type="submit">Teste</button>
-    </form>
-</div>
+    <div>
+        <div class="card pb-3" style="width: 25rem">
+            <div class="card-header">
+                Sorteio atual
+            </div>
+            <div class="card-body text-center">
+                <h3>Sorteio nº{id}</h3>
+                <p>Data do sorteio: dd/mm/aaaa</p>
+                <div class="mt-2">
+                    <p>Dezenas sorteadas</p>
+                    <span class="p-3 border bg-light rounded">01 - 02 - 03 - 04 - 05 - 06</span>
+                    <div class="mt-4">
+                        <button class="btn-success">Sortear</button>
+                    </div>
 
-<div>
-    <div class="card pb-3" style="width: 30rem">
-        <div class="card-header">
-            Sorteio atual
-        </div>
-        <div class="card-body text-center">
-            <h3>Sorteio nº{id}</h3>
-            <p>Data do sorteio: dd/mm/aaaa</p>
-            <div class="mt-2">
-                <p>Dezenas sorteadas</p>
-                <span class="p-3 border bg-light rounded">01 - 02 - 03 - 04 - 05 - 06</span>
-                <div class="mt-4">
-                    <button class="btn-success">Sortear</button>
                 </div>
-
             </div>
         </div>
+    </div>
+    <div class="container" style="width: 35rem">
+        <div class="card">
+            <form th:object="${sorteio}" th:action="@{/sorteios/formSorteio}" method="post">
+                <div class="form-group mt-3">
+                    <label for="data" >Data: </label>
+                    <input id="data" type="date" th:name="dataHoraSorteio" placeholder="0">
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="valor" >Prêmio: </label>
+                    <input id="valor" type="number" min="1" th:name="valorPremio" placeholder="0">
+                </div>
+                <button class="btn btn-primary ml-2" type="submit">Criar</button>
+            </form>
+        </div>
+        <table class="table table-secondary table-striped table-hover" style="text-align: center">
+            <thead>
+            <tr class="table-secondary">
+                <th scope="col">SORTEIO</th>
+                <th scope="col">DATA</th>
+                <th scope="col">DEZENAS</th>
+                <th scope="col">VALOR</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i : ${sorteios}">
+                <th scope="row" th:text="${i.idSorteio}"></th>
+                <td th:text="${i.dataHoraSorteio}"></td>
+                <td th:if="${i.realizado}" th:text="${i.dezenasSorteadas}"></td>
+                <td th:if="${!i.realizado}">Não realizado</td>
+                <td th:text="${i.valorPremio}"></td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </div>
 </body>
