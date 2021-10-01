@@ -7,16 +7,16 @@
     <div class="container"  style="width: 70%;">
         <div class="">
             <div class="ml-2">
-                <form action="post" th:action = "@{/login}" method="post" th:object="${mensagem}">
+<!--                <form th:action = "@{/login}" method="post">-->
                     <div class="card mx-auto" style="width: 24rem;">
                         <div class="card-header d-flex justify-content-center">
-                            <h3 th:text="${mensagem}" style="color: red;"></h3>
+                            <h3 style="color: red;"><span th:text = "${clienteCadastrado.nome}"></span>, seu cadastro foi feito com sucesso!</h3>
                         </div>
                         <div class="card-body d-flex justify-content-center">
-                            <button class="btn btn-primary mt-3 align-self-center justify-self-center" type="submit">Voltar para a pagina de login</button>
+                            <a class="btn btn-primary mt-3 align-self-center justify-self-center" th:href="@{/login}">Voltar para a pagina de login</a>
                         </div>
                     </div>
-                </form>
+<!--                </form>-->
             </div>
         </div>
     </div>

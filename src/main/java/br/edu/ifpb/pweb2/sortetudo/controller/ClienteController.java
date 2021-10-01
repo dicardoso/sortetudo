@@ -42,7 +42,7 @@ public class ClienteController {
         }
         cliente.setSenha(SenhaAuxiliar.hashSenha(cliente.getSenha()));
         clienteRepository.save(cliente);
-        attr.addFlashAttribute("mensagem", "Conta cadastrada com sucesso!");
+        attr.addFlashAttribute("clienteCadastrado", cliente);
         mv.setViewName("redirect:/clientes/clienteCadastroSucesso");
         return mv;
     }
@@ -58,7 +58,6 @@ public class ClienteController {
 
     @GetMapping(value = "/clienteCadastroSucesso")
     public ModelAndView redirectSucesso(ModelAndView mav){
-        mav.addObject("mensagem", "Conta cadastrada com sucesso!");
         mav.setViewName("clientes/clienteCadastroSucesso");
         return mav;
     }
