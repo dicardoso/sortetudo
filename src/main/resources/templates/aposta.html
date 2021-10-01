@@ -14,7 +14,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="i : ${sorteios}">
+        <tr th:each="i : ${sorteios}" th:if="${!i.realizado}">
             <th scope="row" th:text="${i.idSorteio}"></th>
             <td th:text="${i.dataHoraSorteio}"></td>
             <td th:if="${i.realizado}" th:text="${i.dezenasSorteadas}"></td>
@@ -139,7 +139,9 @@
         </div>
     </div>
 </div>
-<div>
+    <div class="mt-4 card">
+        <div class="card-header">Apostas Favoritas</div>
+        <div class="card-body">
     <table class="table table-secondary table-striped table-hover" style="text-align: center">
         <thead>
         <tr class="table-secondary">
@@ -167,6 +169,41 @@
         </tr>
         </tbody>
     </table>
+        </div>
+
+</div>
+
+<div class="mt-4 card">
+    <div class="card-header">Apostas Favoritas</div>
+    <div class="card-body">
+    <table class="table table-secondary table-striped table-hover" style="text-align: center">
+        <thead>
+        <tr class="table-secondary">
+            <th scope="col">Nº Aposta</th>
+            <th scope="col">Sorteio</th>
+            <th scope="col">Dezenas</th>
+            <th scope="col">Favorita</th>
+            <th scope="col">Valor da Aposta</th>
+            <th scope="col">Dezenas Sorteadas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${aposta}" th:if="${(i.favorita) && (i.cliente.id == session.usuario.id)}">
+            <th scope="row"  th:text="${i.id}"></th>
+            <th scope="row" th:text="${i.sorteio.idSorteio}"></th>
+            <th scope="row" th:text="${i.numeros}"></th>
+
+            <td th:if="${i.favorita}" th:text="Sim"></td>
+            <td th:if="${!i.favorita}">Não</td>
+
+            <th scope="row" th:text="'R$'+${i.valor}+',00'"></th>
+
+            <td th:if="${i.sorteio.realizado}" th:text="${i.sorteio.dezenasSorteadas}"></td>
+            <td th:if="${!i.sorteio.realizado}">Não realizado</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
 </div>
 
 </body>

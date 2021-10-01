@@ -1,6 +1,8 @@
 package br.edu.ifpb.pweb2.sortetudo.controller;
 
+import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
 import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
+import br.edu.ifpb.pweb2.sortetudo.repository.ClienteRepository;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ public class SorteioController {
 
     @Autowired
     SorteioRepository sorteioRepository;
+    @Autowired
+    ClienteRepository clienteRepository;
 
     @RequestMapping(value = "/listarSorteios", method = RequestMethod.GET)
     public ModelAndView listAllSorteios(ModelAndView mav) {
@@ -37,6 +41,21 @@ public class SorteioController {
         Sorteio ultimoSorteio = sorteioRepository.getById((long) id);
         dezenas = ultimoSorteio.getDezenasSorteadas();
         return dezenas;
+    }
+
+    @GetMapping("/conferir")
+    public String conferir() {
+        List<Integer> dezenas = new ArrayList<>();
+        List<Integer> clienteDezenas = new ArrayList<>();
+        int id = 1;
+        Sorteio ultimoSorteio = sorteioRepository.getById((long) id);
+        Cliente cliente = clienteRepository.getById((long) id);
+        dezenas = ultimoSorteio.getDezenasSorteadas();
+        clienteDezenas = (List<Integer>) cliente.getApostasFavoritas().get(0);
+        if (dezenas == clienteDezenas) {
+            return "Ganhou";
+        }
+        return "perdeu carai";
     }
 
     @PostMapping()
@@ -85,7 +104,7 @@ public class SorteioController {
         //calcula diferença e datas entre sorteios
 
         sorteio.setRealizado(true);
-
+        sorteioRepository.save(sorteio);
         return  "redirect:/sorteios";
     }
 /*

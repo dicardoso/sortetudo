@@ -25,10 +25,8 @@ public class Cliente {
     @NotBlank(message="Campo obrigatório!")
     private String nome;
 
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date nascimento; // perguntar se pode usar localDate ao inves de Date
+    private Date nascimento;
 
     @NotBlank(message="Campo obrigatório!")
     @Size(min = 11, max = 11, message = "CPF tem que ter 11 digitos!")
