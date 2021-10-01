@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -104,6 +105,7 @@ public class SorteioController {
             System.out.println(result);
             return "redirect:/sorteios/listarSorteios";
         }
+        //sorteio.setDataHoraSorteio();
         sorteio.setRealizado(false);
         sorteio.setDezenasSorteadas(null);
         sorteioRepository.save(sorteio);

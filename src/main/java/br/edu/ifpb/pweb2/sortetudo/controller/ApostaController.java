@@ -1,24 +1,29 @@
 package br.edu.ifpb.pweb2.sortetudo.controller;
 
 import br.edu.ifpb.pweb2.sortetudo.model.Aposta;
+import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
 import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.ApostaRepository;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("usuario")
 @RequestMapping("/apostas")
 public class ApostaController {
 
@@ -36,12 +41,14 @@ public class ApostaController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String cadastrarAposta(Long idSorteio, int num1,int num2,int num3,int num4,int num5, int num6, int num7, int num8, int num9, int num10) {
+    public String cadastrarAposta(HttpServletRequest request, Long idSorteio, int num1, int num2, int num3, int num4, int num5, int num6, int num7, int num8, int num9, int num10) {
 
         Sorteio sorteio = sorteioRepository.getById(idSorteio);
         Aposta aposta = new Aposta();
         ArrayList<Integer> numeros = new ArrayList();
         ArrayList<Integer> numerosDigitados = new ArrayList();
+
+        //Cliente usuario = (Cliente) request.getSession().getAtribute("usuario");
 
         numeros.add(num1);
         numeros.add(num2);
@@ -60,15 +67,25 @@ public class ApostaController {
             }
         }
 
+
+        if (numerosDigitados.size() == 6) aposta.setValor(3);
+        else if (numerosDigitados.size() == 7) aposta.setValor(15);
+        else if (numerosDigitados.size() == 8) aposta.setValor(90);
+        else if (numerosDigitados.size() == 9) aposta.setValor(300);
+        else if (numerosDigitados.size() == 10) aposta.setValor(1500);
+
+
         aposta.setNumeros(numerosDigitados);
         aposta.setDiaAposta(LocalDate.now());
         aposta.setSorteio(sorteio);
 
      //apostas favoritas, colocar um checkbox no front, if true,
         // salva os numeros no array de favoritos de clientes
+
+
         apostaRepository.save(aposta);
 
-        return "foi";
+        return "redirect:/apostas";
         }
 
     @RequestMapping("/{id}/delete")

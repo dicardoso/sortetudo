@@ -1,5 +1,6 @@
 package br.edu.ifpb.pweb2.sortetudo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,9 +23,9 @@ public class Sorteio {
     @ElementCollection
     private List<Integer> dezenasSorteadas = new ArrayList<>();
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @NotNull(message="Campo obrigatório!")
-    private LocalDate dataHoraSorteio;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@NotNull(message="Campo obrigatório!")
+    private Date dataHoraSorteio;
 
     @NotNull(message = "Campo obrigatório")
     @Positive(message = "Precisa ser um valor positivo")

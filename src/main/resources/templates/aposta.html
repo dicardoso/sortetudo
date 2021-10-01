@@ -73,52 +73,52 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="n1" >1° Número: </label>
-                        <input id="n1" type="number" min="1" max="60" th:name="num1" placeholder="0" >
+                        <input id="n1" type="number" min="1" max="60" th:name="num1" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n2">2° Número: </label>
-                        <input id="n2" th:name="num2" placeholder="0">
+                        <input id="n2" th:name="num2" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n3">3° Número: </label>
-                        <input id="n3" th:name="num3" placeholder="0">
+                        <input id="n3" th:name="num3" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n4">4° Número: </label>
-                        <input id="n4" th:name="num4" placeholder="0">
+                        <input id="n4" th:name="num4" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n5">5° Número:</label>
-                        <input id="n5" th:name="num5" placeholder="0">
+                        <input id="n5" th:name="num5" placeholder="0" value="0">
                     </div>
 
                     <div  class="form-group mt-3">
                         <label for="n6">6° Número: </label>
-                        <input id="n6" th:name="num6" placeholder="0">
+                        <input id="n6" th:name="num6" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n7">7° Número: </label>
-                        <input id="n7" th:name="num7" placeholder="0">
+                        <input id="n7" th:name="num7" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n8">8° Número: </label>
-                        <input id="n8" th:name="num8" placeholder="0">
+                        <input id="n8" th:name="num8" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n9">9° Número:</label>
-                        <input id="n9" th:name="num9" placeholder="0">
+                        <input id="n9" th:name="num9" placeholder="0" value="0">
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="n10">10° Número:</label>
-                        <input id="n10" th:name="num10" placeholder="0">
+                        <input id="n10" th:name="num10" placeholder="0" value="0">
                     </div>
 
                     <button class="btn btn-success mt-3" type="submit">Apostar</button>
@@ -138,8 +138,8 @@
         </thead>
         <tbody>
         <tr th:each="i : ${aposta}">
-            <th scope="row" th:text="${i.id}"></th>
-            <th scope="row"></th>
+            <th scope="row"  th:text="${i.id}"></th>
+            <th scope="row" th:text="${i.sorteio.idSorteio}"></th>
             <th scope="row" th:text="${i.numeros}"></th>
         </tr>
         </tbody>
