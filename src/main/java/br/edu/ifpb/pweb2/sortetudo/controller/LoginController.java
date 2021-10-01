@@ -32,7 +32,11 @@ public class LoginController {
     public ModelAndView fazerLogin(Cliente usuario, HttpSession session, ModelAndView mav, RedirectAttributes redirectAttts){
         if ((usuario = this.usuarioValido(usuario)) != null) {
             session.setAttribute("usuario", usuario);
-            mav.setViewName("redirect:/apostas");
+            if(usuario.isAdm()){
+                mav.setViewName("redirect:/sorteios/listarSorteios");
+            } else{
+                mav.setViewName("redirect:/apostas");
+            }
         } else {
             redirectAttts.addFlashAttribute("mensagem", "Login e/ou senha inválidos!");
             mav.setViewName("redirect:/login");
@@ -52,4 +56,10 @@ public class LoginController {
         return verificacao ? usuarioBanco : null;
     }
 
+    @RequestMapping("/sair")
+    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+        session.invalidate();
+        mav.setViewName("redirect:/login");
+        return mav;
+    }
 }

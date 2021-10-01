@@ -40,36 +40,36 @@ public class SorteioController {
     }
 
     @PostMapping()
-    public String realizarSorteioManual(int id, int num1,int num2,int num3,int num4,int num5, int num6) {
+    public String realizarSorteioManual(String idSorteio, int num1,int num2,int num3,int num4,int num5, int num6) {
+            int id = Integer.parseInt(idSorteio);
+            Sorteio ultimoSorteio = sorteioRepository.findById((long) id).get();
+            ArrayList<Integer> sorteados = new ArrayList();
 
-        Sorteio ultimoSorteio = sorteioRepository.findById((long) id).get();
-        ArrayList<Integer> sorteados = new ArrayList();
+            sorteados.add(num1);
+            sorteados.add(num2);
+            sorteados.add(num3);
+            sorteados.add(num4);
+            sorteados.add(num5);
+            sorteados.add(num6);
 
-        sorteados.add(num1);
-        sorteados.add(num2);
-        sorteados.add(num3);
-        sorteados.add(num4);
-        sorteados.add(num5);
-        sorteados.add(num6);
-
-        if (sorteados.size() == 6) {
-            ultimoSorteio.setDezenasSorteadas(sorteados);
-            ultimoSorteio.setRealizado(true);
-            sorteioRepository.save(ultimoSorteio);
-        }
-
+            if (sorteados.size() == 6) {
+                ultimoSorteio.setDezenasSorteadas(sorteados);
+                ultimoSorteio.setRealizado(true);
+                sorteioRepository.save(ultimoSorteio);
+            }
         return "redirect:/sorteios/listarSorteios";
     }
 
-
-    @RequestMapping(value = "/gerarSorteio", method = RequestMethod.POST)
-    public String realizarSorteio(@PathVariable(value = "id") Long id) {
-
-        Sorteio sorteio = sorteioRepository.findById(id).get();
+    public String realizarSorteio(String idSorteio) {
+        int id = Integer.parseInt(idSorteio);
+        Sorteio sorteio = sorteioRepository.findById((long) id).get();
         ArrayList<Integer> list = new ArrayList();
         ArrayList<Integer> sorteados = new ArrayList();
         int contador = 0;
         int[] valores = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60};
+        for (int i=0; i<valores.length; i++){
+            list.add(valores[i]);
+        }
 
         Collections.shuffle(list);
 
@@ -83,9 +83,6 @@ public class SorteioController {
         LocalDate dataUltimoSorteio = sorteioRepository.ultimoSorteio();
 
         //calcula diferença e datas entre sorteios
-        if (LocalDate.now().minusDays(7).isAfter(dataUltimoSorteio)) {
-            sorteioRepository.save(sorteio);
-        }
 
         sorteio.setRealizado(true);
 

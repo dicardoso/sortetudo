@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,13 +36,15 @@ public class ApostaController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAposta(ModelAndView mv) {
         List<Aposta> apostas = apostaRepository.findAll();
+        mv.addObject("sorteios", sorteioRepository.findAll());
+        System.out.println(sorteioRepository.findAll());
         mv.addObject("aposta", apostas);
         mv.setViewName("aposta");
         return mv;
     }
 
     @RequestMapping(value = "/{idCliente}", method = RequestMethod.POST)
-    public String cadastrarAposta(@PathVariable Long idCliente, HttpServletRequest request, Long idSorteio, int num1, int num2, int num3, int num4, int num5, int num6, int num7, int num8, int num9, int num10) {
+    public String cadastrarAposta(@PathVariable Long idCliente, HttpServletRequest request, Long idSorteio, int num1, int num2, int num3, int num4, int num5, int num6, int num7, int num8, int num9, int num10, boolean fav) {
 
         System.out.println(idCliente);
         Sorteio sorteio = sorteioRepository.getById(idSorteio);
@@ -85,10 +85,11 @@ public class ApostaController {
         aposta.setSorteio(sorteio);
         aposta.setCliente(cliente);
 
-     //apostas favoritas, colocar um checkbox no front, if true,
+        //apostas favoritas, colocar um checkbox no front, if true,
         // salva os numeros no array de favoritos de clientes
-
-
+        if (fav){
+            aposta.setFavorita(true);
+        }
         apostaRepository.save(aposta);
 
         return "redirect:/apostas";

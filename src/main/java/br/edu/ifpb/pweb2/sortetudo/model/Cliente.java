@@ -49,4 +49,8 @@ public class Cliente {
     @OneToMany
     private List<Aposta> apostasFavoritas;
 
+    public void addApostaFavorita(Aposta aposta){
+        apostasFavoritas.add(aposta);
+    }
+
 }

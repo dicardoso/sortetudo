@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -60,6 +61,12 @@ public class ClienteController {
         mav.addObject("mensagem", "Conta cadastrada com sucesso!");
         mav.setViewName("clientes/clienteCadastroSucesso");
         return mav;
+    }
+    @RequestMapping("/sair")
+    public String sair(HttpSession session) {
+        System.out.println("saindo");
+        session.invalidate();
+        return "redirect:/login";
     }
 
 }

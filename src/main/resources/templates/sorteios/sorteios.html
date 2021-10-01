@@ -7,8 +7,10 @@
     <div class="card" style="width: 20rem">
         <form th:object="${sorteio}" th:action="@{/sorteios}" method="post">
             <div class="form-group mt-3">
-                <label for="id" >ID: </label>
-                <input id="id" type="number" min="1" th:name="id" placeholder="0">
+                <label for="idSorteio" >ID Sorteio: </label>
+                <select id="idSorteio" th:name="idSorteio">
+                    <option th:each="i : ${sorteios}" th:if="${!i.realizado}" th:value="${i.idSorteio}" th:text="${i.idSorteio}"></option>
+                </select>
             </div>
 
             <div class="form-group mt-3">
@@ -40,32 +42,14 @@
                 <label for="n6">6° Número: </label>
                 <input id="n6" type="number" min="1" max="60" th:name="num6" placeholder=0>
             </div>
-            <button type="submit">Teste</button>
+            <button type="submit">Sorteio Manual</button>
         </form>
     </div>
 
-    <div>
-        <div class="card pb-3" style="width: 25rem">
-            <div class="card-header">
-                Sorteio atual
-            </div>
-            <div class="card-body text-center">
-                <h3>Sorteio nº{id}</h3>
-                <p>Data do sorteio: dd/mm/aaaa</p>
-                <div class="mt-2">
-                    <p>Dezenas sorteadas</p>
-                    <span class="p-3 border bg-light rounded">01 - 02 - 03 - 04 - 05 - 06</span>
-                    <div class="mt-4">
-                        <button class="btn-success">Sortear</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container" style="width: 35rem">
         <div class="card">
             <form th:object="${sorteio}" th:action="@{/sorteios/formSorteio}" method="post">
+
                 <div class="form-group mt-3">
                     <label for="data" >Data: </label>
                     <input id="data" type="date" th:name="dataHoraSorteio" placeholder="0">

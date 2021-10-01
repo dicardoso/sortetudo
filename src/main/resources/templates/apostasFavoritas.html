@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragment :: head}"></head>
+<body>
+<div th:replace="~{fragment :: menu}"></div>
+
+<div>
+    Apostas Favoritas
+    <table class="table table-secondary table-striped table-hover" style="text-align: center">
+        <thead>
+        <tr class="table-secondary">
+            <th scope="col">Nº Aposta</th>
+            <th scope="col">Sorteio</th>
+            <th scope="col">Dezenas</th>
+            <th scope="col">Favorita</th>
+            <th scope="col">Valor da Aposta</th>
+            <th scope="col">Dezenas Sorteadas</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${aposta}" th:if="${i.favorita &&(i.cliente.id == session.usuario.id)}">
+            <th scope="row"  th:text="${i.id}"></th>
+            <th scope="row" th:text="${i.sorteio.idSorteio}"></th>
+            <th scope="row" th:text="${i.numeros}"></th>
+
+            <td th:if="${i.favorita}" th:text="Sim"></td>
+            <td th:if="${!i.favorita}">Não</td>
+
+            <th scope="row" th:text="'R$'+${i.valor}+',00'"></th>
+
+            <td th:if="${i.sorteio.realizado}" th:text="${i.sorteio.dezenasSorteadas}"></td>
+            <td th:if="${!i.sorteio.realizado}">Não realizado</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

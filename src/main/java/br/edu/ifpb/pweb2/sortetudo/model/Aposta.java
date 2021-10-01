@@ -28,11 +28,14 @@ public class Aposta {
 
     private int valor;
 
+    private boolean favorita;
+
     public Aposta() {}
 
     public Aposta(Sorteio sorteio, List<Integer> numeros) {
         this.sorteio = sorteio;
         this.numeros = numeros;
+        this.favorita = false;
     }
 
     public void adicionarNumero(Integer numero) {
