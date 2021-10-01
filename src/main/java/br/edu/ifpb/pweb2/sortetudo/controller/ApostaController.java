@@ -43,6 +43,15 @@ public class ApostaController {
         return mv;
     }
 
+    @GetMapping("/listarFavoritas")
+    public List<Aposta> listarFavoritas() {
+        List<Aposta> favoritas = new ArrayList<>();
+        int id = 1;
+        Cliente cliente = clienteRepository.getById((long) id);
+        favoritas = cliente.getApostasFavoritas();
+        return favoritas;
+    }
+
     @RequestMapping(value = "/{idCliente}", method = RequestMethod.POST)
     public String cadastrarAposta(@PathVariable Long idCliente, HttpServletRequest request, Long idSorteio, int num1, int num2, int num3, int num4, int num5, int num6, int num7, int num8, int num9, int num10, boolean fav) {
 
