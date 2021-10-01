@@ -2,6 +2,7 @@ package br.edu.ifpb.pweb2.sortetudo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Cliente {
 
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date nascimento; // perguntar se pode usar localDate ao inves de Date
 
     @NotBlank(message="Campo obrigatório!")

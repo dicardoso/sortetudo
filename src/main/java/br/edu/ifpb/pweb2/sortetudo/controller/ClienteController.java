@@ -39,6 +39,7 @@ public class ClienteController {
         if (result.hasErrors()) {
             mv.addObject("cliente", cliente);
             mv.setViewName("/clientes/clientes");
+            return mv;
         }
         cliente.setSenha(SenhaAuxiliar.hashSenha(cliente.getSenha()));
         clienteRepository.save(cliente);

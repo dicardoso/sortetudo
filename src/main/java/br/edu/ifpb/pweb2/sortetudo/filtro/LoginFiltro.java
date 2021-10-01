@@ -22,7 +22,7 @@ public class LoginFiltro implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        System.out.println("LoginFilter------------------------------------");
+        System.out.println("Filtro de login - Prints de verificações de vezes que foi interceptados");
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
