@@ -4,6 +4,7 @@ import br.edu.ifpb.pweb2.sortetudo.model.Aposta;
 import br.edu.ifpb.pweb2.sortetudo.model.Cliente;
 import br.edu.ifpb.pweb2.sortetudo.model.Sorteio;
 import br.edu.ifpb.pweb2.sortetudo.repository.ApostaRepository;
+import br.edu.ifpb.pweb2.sortetudo.repository.ClienteRepository;
 import br.edu.ifpb.pweb2.sortetudo.repository.SorteioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -31,6 +32,8 @@ public class ApostaController {
     ApostaRepository apostaRepository;
     @Autowired
     SorteioRepository sorteioRepository;
+    @Autowired
+    ClienteRepository clienteRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAposta(ModelAndView mv) {
@@ -40,10 +43,12 @@ public class ApostaController {
         return mv;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String cadastrarAposta(HttpServletRequest request, Long idSorteio, int num1, int num2, int num3, int num4, int num5, int num6, int num7, int num8, int num9, int num10) {
+    @RequestMapping(value = "/{idCliente}", method = RequestMethod.POST)
+    public String cadastrarAposta(@PathVariable Long idCliente, HttpServletRequest request, Long idSorteio, int num1, int num2, int num3, int num4, int num5, int num6, int num7, int num8, int num9, int num10) {
 
+        System.out.println(idCliente);
         Sorteio sorteio = sorteioRepository.getById(idSorteio);
+        Cliente cliente = clienteRepository.getById(idCliente);
         Aposta aposta = new Aposta();
         ArrayList<Integer> numeros = new ArrayList();
         ArrayList<Integer> numerosDigitados = new ArrayList();
@@ -78,6 +83,7 @@ public class ApostaController {
         aposta.setNumeros(numerosDigitados);
         aposta.setDiaAposta(LocalDate.now());
         aposta.setSorteio(sorteio);
+        aposta.setCliente(cliente);
 
      //apostas favoritas, colocar um checkbox no front, if true,
         // salva os numeros no array de favoritos de clientes
